@@ -18,7 +18,6 @@ const mailgunClient = mailgun.client({
   key: process.env.API_KEY,
 });
 
-
 exports.registerController = (req, res) => {
   const { name, email, password } = req.body;
   const errors = validationResult(req);
@@ -52,7 +51,7 @@ exports.registerController = (req, res) => {
         expiresIn: '5m',
       }
     );
-    
+
     //EMAIL DATA SENDING
     const emailData = {
       from: process.env.EMAIL_FROM,
@@ -67,7 +66,7 @@ exports.registerController = (req, res) => {
                 <p>${process.env.CLIENT_URL}</p>
             `,
     };
-
+    //
     mailgunClient.messages
       .create(DOMAIN, emailData)
       .then((sent) => {
